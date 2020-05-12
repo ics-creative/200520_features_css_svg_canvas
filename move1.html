@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./common_style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.2.2/pixi.min.js"></script>
+  <title>移動のアニメーション : CSS</title>
+  <style>
+    .system {
+      position: absolute;
+      width: 0;
+      height: 0;
+      left: 50%;
+      top: 50%;
+    }
+    .sun {
+      position: absolute;
+      width: 0;
+      height: 0;
+      top: 0;
+      left: 0;
+    }
+    .sun::after {
+      content: "";
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      top: -54px;
+      left: -54px;
+      border-radius: 100%;
+      border: 2px solid #534741;
+      background-color: #ffd000;
+    }
+
+    .planet {
+      position: absolute;
+      width: 0;
+      height: 0;
+      top: 0;
+      left: 120px;
+      transform-origin: -120px 0;
+      animation: 8s linear infinite rotate;
+    }
+    .planet::before {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      left: -240px;
+      top: -120px;
+      border-radius: 100%;
+      border: 1px dotted #534741;
+    }
+    .planet::after {
+      content: "";
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      top: -20px;
+      left: -20px;
+      border-radius: 100%;
+      border: 2px solid #534741;
+      background-color: #ffd000;
+    }
+    .planet  .planet {
+      left: 60px;
+      transform-origin: -60px 0;
+    }
+    .planet  .planet::before {
+      width: 120px;
+      height: 120px;
+      left: -100px;
+      top: -60px;
+    }
+    .planet  .planet::after {
+      width: 20px;
+      height: 20px;
+      top: -10px;
+      left: 10px;
+    }
+    .cat_v {
+      position: relative;
+      animation: 2s ease-in-out infinite alternate-reverse fly_v;
+      width: 100%;
+      background-color: red;
+    }
+    .cat_h {
+      position: absolute;
+      animation: 3.3s ease-in-out infinite alternate-reverse fly_h;
+    }
+    .cat {
+      position: absolute;
+      width: 180px;
+      height: 80px;
+      background-image: url(/imgs/longcat_side.png);
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+    }
+
+    @keyframes rotate {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    @keyframes fly_v {
+      from {
+        transform: translateY(10px);
+      }
+      to {
+        transform: translateY(320px);
+      }
+    }
+    @keyframes fly_h {
+      from {
+        transform: translateX(10px);
+      }
+      to {
+        transform: translateX(420px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>サンプル：移動のアニメーション(CSS)</h1>
+  <a href="./">サンプル一覧に戻る</a> | <a href="./">記事に戻る</a>
+  <div class="stage">
+
+    <div class="system">
+        <div class="sun">
+        </div>
+        <div class="planet">
+          <div class="planet"></div>
+        </div>
+    </div>
+    <div class="cat_v">
+      <div class="cat_h">
+        <div class="cat"></div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

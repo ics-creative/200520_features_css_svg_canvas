@@ -1,0 +1,27 @@
+/* 共通スタイル */
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: "ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","HG丸ｺﾞｼｯｸM-PRO","HGMaruGothicMPRO",Arial, Helvetica, sans-serif;
+  color: #534741;
+  text-align: center;
+}
+a {
+  color: #534741;
+}
+
+.stage {
+  position: relative;
+  width: 600px;
+  height: 400px;
+  margin: 10px auto;
+  background-color: #fff;
+  border: 1px solid #aaa;
+  overflow: hidden;
+  text-align: center;
+}
+
+.index-list {
+  text-align: left;
+}

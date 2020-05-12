@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./common_style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.2.2/pixi.min.js"></script>
+  <title>移動のアニメーション : SVG</title>
+</head>
+<body>
+  <h1>サンプル：移動のアニメーション(SVG)</h1>
+  <a href="./">サンプル一覧に戻る</a> | <a href="./">記事に戻る</a>
+  <div class="stage">
+    <svg viewbox="-300 0 600 400" width="600" height="400">
+      <g transform="translate(-220 40)">
+        <path id="flypath" stroke="#534741" stroke-width="2" stroke-dasharray="3 1 1" fill="none" d="M431.87,164.15c0,23.31-32.95,37.67-45.9,57.31-12,18.23-9.72,53.88-30.26,67-18.44,11.77-50.94-4.22-74.3,2-21.33,5.69-40.73,36.32-64.72,36.32S173.3,296.16,152,290.47c-23.37-6.23-55.87,9.76-74.3-2-20.55-13.12-18.24-48.77-30.26-67-13-19.64-45.91-34-45.91-57.31s33-37.68,45.91-57.32c12-18.23,9.71-53.88,30.26-67,18.43-11.77,50.93,4.22,74.3-2C173.3,32.13,192.7,1.5,216.69,1.5s43.39,30.63,64.72,36.32c23.36,6.23,55.86-9.76,74.3,2C376.25,53,374,88.6,386,106.83,398.92,126.47,431.87,140.83,431.87,164.15Z" />
+        <g>
+          <image xlink:href="imgs/boxcat_side.svg" width="160" height="80" transform="translate(-80 -40)" />
+          <animateMotion begin="0s" dur="15s" repeatCount="indefinite" rotate="auto">
+            <mpath xlink:href="#flypath"/>
+          </animateMotion>
+        </g>
+      </g>
+    </svg>
+  </div>
+</body>
+</html>

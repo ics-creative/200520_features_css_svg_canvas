@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./common_style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.2.2/pixi.min.js"></script>
+  <title>移動のアニメーション : Canvas/WebGL</title>
+</head>
+<body>
+  <h1>サンプル：移動のアニメーション(Canvas/WebGL)</h1>
+  <a href="./">サンプル一覧に戻る</a> | <a href="./">記事に戻る</a>
+  <div class="stage" id="stage"></div>
+  <script>
+    // PixiJSのステージを生成
+    const stageSize = new PIXI.Point(600, 400)
+    const app = new PIXI.Application({ 
+      width: stageSize.x,
+      height: stageSize.y,
+      transparent: true,
+      resolution: window.devicePixelRatio || 1,
+      antialias: true,
+      autoDensity : true,
+      preserveDrawingBuffer: false
+    })
+
+    // 前回の描画結果を表示するためのSpriteを生成してステージに追加
+    // ブラーをかけて透明度を下げる
+    const lastFrame = new PIXI.Sprite()
+    const blurFilter = new PIXI.filters.BlurFilter(1.0)
+    lastFrame.filters = [blurFilter]
+    lastFrame.alpha = 0.85
+    app.stage.addChild(lastFrame)
+
+    // 猫画像を読み込んでステージに追加
+    document.getElementById("stage").appendChild(app.view)
+    const cat = PIXI.Sprite.from("./imgs/longcat_side.png")
+    cat.scale.set(0.5)
+    app.stage.addChild(cat);
+
+    const catSpeedVec = new PIXI.Point(5, 5)
+    let lastTime = performance.now()
+    app.ticker.add(() => {
+      // ステージを画像として取り込む
+      // このテクスチャには猫本体と、前回までのブラーがかかった描画結果の両方が含まれる
+      lastFrame.texture = app.renderer.generateTexture(
+        app.stage,
+        PIXI.SCALE_MODES.NEAREST,
+        1,
+        new PIXI.Rectangle(0, 0, stageSize.x, stageSize.y)
+      )
+      // 猫を動かす。回転させながら、壁に当たったら適当に跳ね返るようにする
+      const time = (performance.now() - lastTime) / 1000 * 50
+      lastTime = performance.now()
+      cat.x += catSpeedVec.x * time
+      cat.y += catSpeedVec.y * time
+      cat.angle += time * 2
+      if (cat.x < 50) {
+        catSpeedVec.x *= -1
+        cat.x = 50
+      }
+      if (cat.y < 50) {
+        catSpeedVec.y *= -1
+        cat.y = 50
+      }
+      const right = stageSize.x - (cat.x + cat.width)
+      if (right < 0) {
+        catSpeedVec.x *= -1
+        cat.x = stageSize.x - cat.width
+      }
+      const bottom = stageSize.y - (cat.y + cat.height)
+      if (bottom < 0) {
+        catSpeedVec.y *= -1
+        cat.y = stageSize.y - cat.height
+      }
+    })
+  </script>
+</body>
+</html>

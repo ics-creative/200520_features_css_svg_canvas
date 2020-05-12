@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./common_style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.2.2/pixi.min.js"></script>
+  <title>エフェクトとアニメーション : CSS</title>
+  <style>
+    .boxcat {
+      position: absolute;
+      background-image: url(/imgs/boxcat_front.svg);
+      background-position: center bottom;
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 200px;
+      height: 200px;
+    }
+    /* 2匹の猫全体に虹色のフィルターを適用 */
+    .cats {
+      position: absolute;
+      top: 100px;
+      left: 200px;
+      animation: 2s ease-in-out infinite party;
+    }
+    /* 手前の猫にブラーフィルターを適用し、乗算で合成 */
+    .cat2 {
+      mix-blend-mode: multiply;
+      animation: 2s ease-in-out alternate-reverse infinite beat;
+    }
+    @keyframes beat {
+      from {
+        filter: blur(5px) brightness(1.0);
+      }
+      to {
+        transform: scale(1.2);
+        filter: blur(30px) brightness(1.6);
+      }
+    }
+    @keyframes party {
+      to {
+        filter: hue-rotate(360deg);
+      }  
+    }
+  </style>
+</head>
+<body>
+  <h1>サンプル：エフェクトのアニメーション(CSS)</h1>
+  <a href="./">サンプル一覧に戻る</a> | <a href="./">記事に戻る</a>
+  <div class="stage">
+    <div class="cats">
+      <!-- 2匹の猫を重ねて表示する -->
+      <div class="boxcat cat1"></div>
+      <div class="boxcat cat2"></div>
+    </div>
+  </div>
+</body>
+</html>

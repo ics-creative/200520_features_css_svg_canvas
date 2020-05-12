@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./common_style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.2.2/pixi.min.js"></script>
+  <title>変形とアニメーション : Canvas/WebGL</title>
+</head>
+<body>
+  <h1>サンプル：変形のアニメーション(Canvas/WebGL)</h1>
+  <a href="./">サンプル一覧に戻る</a> | <a href="./">記事に戻る</a>
+  <div class="stage" id="stage"></div>
+<script>
+  // PixiJSのキャンバスを生成
+  const app = new PIXI.Application({ 
+    width: 600,
+    height: 400,
+    backgroundColor: 0xffffff,
+    resolution: window.devicePixelRatio || 1,
+    antialias: true,
+    autoDensity : true
+  });
+  document.getElementById("stage").appendChild(app.view)
+
+  // PIXI.SimpleRopeを使って変形のためのメッシュを生成
+  const catLength = 500
+  const pointCount = 20
+  const points = Array(pointCount).fill(0).map((_, index) => new PIXI.Point(catLength * (index / (pointCount - 1)), 0))
+  const cat = new PIXI.SimpleRope(PIXI.Texture.from("./imgs/longcat.png"), points)
+  cat.scale.set(0.5)
+  cat.x = 300
+  cat.y = 380
+  app.stage.addChild(cat);
+
+  // メッシュのポイントをSin波でフレームごとに動かして変形
+  app.ticker.add(() => {
+    const time = performance.now() / 1000
+    points.forEach((p, index) => {
+      const xr = index / (pointCount - 1)
+      p.y = xr * 50 * Math.sin((time * 5 + xr * 4))
+      p.x = (1 + Math.sin(time * 2.5) * 0.2) * (xr * catLength)
+    })
+    cat.angle = -90 + Math.sin(time * 5) * 20
+  })
+</script>
+</body>
+</html>

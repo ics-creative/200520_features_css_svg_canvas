@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./common_style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.2.2/pixi.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi-filters/1.0.8/ascii.js"></script>
+  <title>エフェクトとアニメーション : Canvas/WebGL</title>
+</head>
+<body>
+  <h1>サンプル：エフェクトのアニメーション(Canvas/WebGL)</h1>
+  <a href="./">サンプル一覧に戻る</a> | <a href="./">記事に戻る</a>
+  <div class="stage" id="stage"></div>
+  <script>
+    const stageSize = new PIXI.Point(600, 400)
+    const app = new PIXI.Application({ 
+      width: stageSize.x,
+      height: stageSize.y,
+      backgroundColor: 0xffffff,
+      transparent: true,
+      resolution: window.devicePixelRatio || 1,
+      antialias: true,
+      autoDensity : true
+    })
+    document.getElementById("stage").appendChild(app.view)
+    const cat = PIXI.Sprite.from("./imgs/boxcat_front.png")
+    cat.scale.set(3)
+    cat.x = 300
+    cat.y = 200
+    cat.anchor.set(0.5, 0.5)
+    const asciiFilter = new PIXI.filters.AsciiFilter(7)
+    app.stage.filters = [asciiFilter]
+    app.stage.addChild(cat);
+
+    app.ticker.add(() => {
+      const time = performance.now() / 1000
+      cat.angle = time % 360 * 30
+    })    
+  </script>
+</body>
+</html>
